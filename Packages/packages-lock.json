@@ -181,6 +181,13 @@
       },
       "hash": "273b15b24423ac54c8cfbd46a8185a629d202c29"
     },
+    "com.varlab.interactions": {
+      "version": "ssh://git@bitbucket.org/VARLab/core-interactions.git#upm-staging",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c39ef20273bf369f0e687e61dcd107682b3292a2"
+    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
