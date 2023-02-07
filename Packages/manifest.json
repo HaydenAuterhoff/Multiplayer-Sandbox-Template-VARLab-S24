@@ -12,6 +12,8 @@
     "com.unity.visualscripting": "1.7.8",
     "com.varlab.corecinema": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
     "com.varlab.interactions": "ssh://git@bitbucket.org/VARLab/core-interactions.git#upm-staging",
+    "com.varlab.scorm": "ssh://git@bitbucket.org/VARLab/scorm.git#upm",
+    "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

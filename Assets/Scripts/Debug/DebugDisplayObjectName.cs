@@ -10,5 +10,10 @@ public class DebugDisplayObjectName : MonoBehaviour
     {
         if (!TextArea) { return; }
         TextArea.text = $"{PrefixText}{(obj ? obj.name : "null")}";
+
+        if (obj.GetComponent<InteractionTracker>())
+        {
+            TextArea.text += $" ({obj.GetComponent<InteractionTracker>().InteractionCount})";
+        }
     }
 }

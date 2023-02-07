@@ -68,7 +68,7 @@
     },
     "com.unity.nuget.newtonsoft-json": {
       "version": "3.0.2",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -172,6 +172,15 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.varlab.cloudsave": {
+      "version": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2"
+      },
+      "hash": "0dabb0cfec461207eebaa85a7558fbcd881db220"
+    },
     "com.varlab.corecinema": {
       "version": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
       "depth": 0,
@@ -187,6 +196,13 @@
       "source": "git",
       "dependencies": {},
       "hash": "c39ef20273bf369f0e687e61dcd107682b3292a2"
+    },
+    "com.varlab.scorm": {
+      "version": "ssh://git@bitbucket.org/VARLab/scorm.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "8b49947e903e8fcd78b5a163f87f6f099de41610"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
