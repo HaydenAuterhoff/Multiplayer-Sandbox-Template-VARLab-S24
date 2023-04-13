@@ -85,6 +85,7 @@ static class BuildCommand
 
     static string GetFixedBuildPath(BuildTarget buildTarget, string buildPath, string buildName)
     {
+        if (GetArgument("customBuildTarget").ToLower() == "scorm") return buildPath;
         if (buildTarget.ToString().ToLower().Contains("windows")) {
             buildName += ".exe";
         } else if (buildTarget == BuildTarget.Android) {
@@ -177,14 +178,14 @@ static class BuildCommand
 
         var buildPath      = GetBuildPath();
         var buildName      = GetBuildName();
-        var buildOptions   = GetBuildOptions();
+        var buildOptions   = isBuildTargetScorm ? BuildOptions.None : GetBuildOptions();
         var fixedBuildPath = GetFixedBuildPath(buildTarget, buildPath, buildName);
 
         SetScriptingBackendFromEnv(buildTarget);
 
         if (isBuildTargetScorm)
         {
-            PlayerSettings.WebGL.template = "Assets\\WebGLTemplates\\SCORM Fixed";
+            PlayerSettings.WebGL.template = "PROJECT:SCORM Fixed";
         }
 
         var buildReport = BuildPipeline.BuildPlayer(GetEnabledScenes(), fixedBuildPath, buildTarget, buildOptions);

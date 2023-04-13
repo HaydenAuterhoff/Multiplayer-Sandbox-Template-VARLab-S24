@@ -27,9 +27,9 @@ pipelines:
 #          - chmod +x ./ci/test.sh && ./ci/test.sh
 
 #    - parallel:
-    BuildWebGL:
+    BuildScorm:
       - step:
-          name: 'Build WebGL'
+          name: 'Build WebGL + SCORM'
 #          runs-on:
 #            - self.hosted
 #            - linux
@@ -41,9 +41,10 @@ pipelines:
             - echo $UNITY_LICENSE_FILE_B64 | tr -d '[:space:]' | sed 's/.\{64\}/&\n/g' | base64 -d > $UNITY_LICENSE_FILE
             - chmod +x ./ci/activate.sh && ./ci/activate.sh
             - export BUILD_TARGET=WebGL
+            - export CUSTOM_BUILD_TARGET=SCORM
             - chmod +x ./ci/build.sh && ./ci/build.sh
           artifacts:
-            - Builds/**
+            - Builds/*.zip
     
     BuildWindows:
       - step:
@@ -55,25 +56,17 @@ pipelines:
           script:
             - echo $UNITY_LICENSE_FILE_B64 | tr -d '[:space:]' | sed 's/.\{64\}/&\n/g' | base64 -d > $UNITY_LICENSE_FILE
             - chmod +x ./ci/activate.sh && ./ci/activate.sh
-            - export BUILD_TARGET=Win64
+            - export BUILD_TARGET=StandaloneWindows64
+            - export CUSTOM_BUILD_TARGET=StandaloneWindows64
             - chmod +x ./ci/build.sh && ./ci/build.sh
           artifacts:
             - Builds/**
             
-    TestLicenseFile:
+    ActivateUnityLicense:
       - step:
-          name: 'Test Transfering License File'
-          image: unityci/editor:ubuntu-2021.3.4f1-webgl-1.0.1
+          name: 'Activate Unity License'
           script:
-#            - echo "-----BEGIN CERTIFICATE-----" > header
-#            - echo "-----END CERTIFICATE-----" > footer
             - echo $UNITY_LICENSE_FILE_B64 | tr -d '[:space:]' | sed 's/.\{64\}/&\n/g' | base64 -d > $UNITY_LICENSE_FILE
-            - cat $UNITY_LICENSE_FILE
-#            - base64 -d license.b64 > Unity_v2021.x.ulf
-#            - cat Unity_v2021.x.ulf
-#            - cat Unity_v2020.x.ulf
-#            - echo $TEST > Unity_v2020.x.ulf
-#            - cat Unity_v2020.x.ulf
             - chmod +x ./ci/activate.sh && ./ci/activate.sh
 
             

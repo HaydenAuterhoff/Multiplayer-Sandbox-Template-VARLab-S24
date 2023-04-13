@@ -74,7 +74,7 @@ namespace VARLab.SCORM.Editor
                 TimeLimit = ""//PlayerPrefs.GetString("Time_Limit_Secs")
             };
 
-            Publish("Builds/WebGL", "Builds/SCORM", data);
+            Publish("Builds/WebGL", "Builds/SCORM.zip", data);
         }
 
         /// <summary>Publish this SCORM package to a conformant zip file.</summary>
