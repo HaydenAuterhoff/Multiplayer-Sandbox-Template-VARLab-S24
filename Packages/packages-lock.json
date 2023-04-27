@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.coffee.upm-git-extension": {
+      "version": "https://github.com/mob-sakai/UpmGitExtension.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d0c1cbb5415f5accf6a1d49d1dc91cf7d4fb11b9"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
@@ -179,7 +186,7 @@
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "0dabb0cfec461207eebaa85a7558fbcd881db220"
+      "hash": "bcaad9adad5b974d2b67621854b87a2daa753ff1"
     },
     "com.varlab.corecinema": {
       "version": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
