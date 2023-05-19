@@ -780,8 +780,8 @@ PlayerSettings:
     PS4: URP_OUTLINE
     PS5: URP_OUTLINE
     Stadia: URP_OUTLINE
-    Standalone: URP_OUTLINE
-    WebGL: URP_OUTLINE
+    Standalone: URP_OUTLINE;NODECANVAS
+    WebGL: URP_OUTLINE;NODECANVAS
     Windows Store Apps: URP_OUTLINE
     XboxOne: URP_OUTLINE
     iPhone: URP_OUTLINE

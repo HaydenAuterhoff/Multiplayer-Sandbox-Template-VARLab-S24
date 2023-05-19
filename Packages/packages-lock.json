@@ -7,6 +7,13 @@
       "dependencies": {},
       "hash": "d0c1cbb5415f5accf6a1d49d1dc91cf7d4fb11b9"
     },
+    "com.paradoxnotion.nodecanvas": {
+      "version": "ssh://git@bitbucket.org/VARLab/nodecanvas.git#3.2.6",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0c8ac00f528c0dced7ecab668ff167788e3b5bd2"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,
@@ -203,6 +210,13 @@
       "source": "git",
       "dependencies": {},
       "hash": "c39ef20273bf369f0e687e61dcd107682b3292a2"
+    },
+    "com.varlab.nodecanvas.tools": {
+      "version": "ssh://git@bitbucket.org/VARLab/nodecanvas-tools.git#1.0.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "a7ac94211ba2ec5d77b4df046a1c91707c33dc83"
     },
     "com.varlab.scorm": {
       "version": "ssh://git@bitbucket.org/VARLab/scorm.git#upm",

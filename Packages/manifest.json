@@ -14,6 +14,8 @@
     "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
     "com.varlab.corecinema": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
     "com.varlab.interactions": "ssh://git@bitbucket.org/VARLab/core-interactions.git#upm-staging",
+    "com.paradoxnotion.nodecanvas": "ssh://git@bitbucket.org/VARLab/nodecanvas.git#3.2.6",
+    "com.varlab.nodecanvas.tools": "ssh://git@bitbucket.org/VARLab/nodecanvas-tools.git#1.0.2",
     "com.varlab.scorm": "ssh://git@bitbucket.org/VARLab/scorm.git#upm",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
