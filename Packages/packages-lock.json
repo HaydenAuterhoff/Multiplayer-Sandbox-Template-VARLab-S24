@@ -14,6 +14,13 @@
       "dependencies": {},
       "hash": "0c8ac00f528c0dced7ecab668ff167788e3b5bd2"
     },
+    "com.pirateparrot.outline": {
+      "version": "ssh://git@bitbucket.org/VARLab/easy-performant-outline.git#3.4.2",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d3148280a388554b729951a491d722e766f3e3bc"
+    },
     "com.unity.burst": {
       "version": "1.6.5",
       "depth": 1,

@@ -11,6 +11,7 @@
     "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.7.8",
+    "com.pirateparrot.outline": "ssh://git@bitbucket.org/VARLab/easy-performant-outline.git#3.4.2",
     "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
     "com.varlab.corecinema": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
     "com.varlab.interactions": "ssh://git@bitbucket.org/VARLab/core-interactions.git#upm-staging",
