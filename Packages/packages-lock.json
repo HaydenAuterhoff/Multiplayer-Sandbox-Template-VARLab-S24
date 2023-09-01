@@ -203,20 +203,20 @@
       "hash": "bcaad9adad5b974d2b67621854b87a2daa753ff1"
     },
     "com.varlab.corecinema": {
-      "version": "ssh://git@bitbucket.org/VARLab/core-cinema.git#upm",
+      "version": "ssh://git@bitbucket.org/VARLab/core-cinema.git#0.1.4",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.cinemachine": "2.8.9"
       },
-      "hash": "273b15b24423ac54c8cfbd46a8185a629d202c29"
+      "hash": "da66708048a1f2750dc8ef29aa842ce0c0066605"
     },
     "com.varlab.interactions": {
-      "version": "ssh://git@bitbucket.org/VARLab/core-interactions.git#upm-staging",
+      "version": "ssh://git@bitbucket.org/VARLab/core-interactions.git#0.2.0",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c39ef20273bf369f0e687e61dcd107682b3292a2"
+      "hash": "aaf7e76ecc53fdfa814c103aad9c315c554d0d01"
     },
     "com.varlab.nodecanvas.tools": {
       "version": "ssh://git@bitbucket.org/VARLab/nodecanvas-tools.git#1.0.2",
