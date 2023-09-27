@@ -13,6 +13,8 @@
     "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.7.8",
+    "com.microsoft.playfab": "ssh://git@bitbucket.org/VARLab/playfab-sdk.git#2.175.230901",
+    "com.varlab.analytics": "ssh://git@bitbucket.org/VARLab/analyticspackage.git#0.2.0",
     "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
     "com.varlab.corecinema": "ssh://git@bitbucket.org/VARLab/core-cinema.git#0.1.4",
     "com.varlab.interactions": "ssh://git@bitbucket.org/VARLab/core-interactions.git#0.2.0",
