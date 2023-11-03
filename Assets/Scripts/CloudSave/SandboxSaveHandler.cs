@@ -20,6 +20,8 @@ public class SandboxSaveHandler : ExperienceSaveHandler
     public UnityEvent OnDeleteSuccess;
     public UnityEvent OnDeleteFailed;
 
+    public string DataCache { get; private set; }
+
 
     [Header("Startup")]
     [Tooltip("The application should load data on startup")]
@@ -60,5 +62,12 @@ public class SandboxSaveHandler : ExperienceSaveHandler
             else { OnDeleteFailed?.Invoke(); }
         });
     }
+
+    public virtual string UpdateCache()
+    {
+        DataCache = m_Serializer.Serialize();
+        return DataCache;
+    }
+
 
 }

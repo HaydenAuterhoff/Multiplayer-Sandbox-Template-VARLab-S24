@@ -26,23 +26,23 @@ public class InteractionTracker : MonoBehaviour, ICloudSerialized, ICloudDeseria
     public int InteractionCount => interactionCount;
 
 
-    public void LogInteractionCount()
+    public virtual void LogInteractionCount()
     {
         Debug.Log($"{name} has been interacted with {interactionCount} times");
     }
 
-    public void HandleClickInteraction()
+    public virtual void HandleClickInteraction()
     {
         ++interactionCount;
         //LogInteractionCount();
     }
 
-    public void OnSerialize()
+    public virtual void OnSerialize()
     {
         Debug.Log($"Saving state of '{name}' with {interactionCount} interactions");
     }
 
-    public void OnDeserialize()
+    public virtual void OnDeserialize()
     {
         Debug.Log($"Loaded state of '{name}' with {interactionCount} interactions");
     }
