@@ -206,11 +206,11 @@
       "hash": "da66708048a1f2750dc8ef29aa842ce0c0066605"
     },
     "com.varlab.developertools": {
-      "version": "ssh://git@bitbucket.org/VARLab/unity-developer-tools.git#upm-console-tests",
+      "version": "ssh://git@bitbucket.org/VARLab/unity-developer-tools.git#1.0.0",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4a19672db01b3fd6c466965a09c6f8eba5c6a745"
+      "hash": "cc4dc9eae257e81bffd6683af209026a2665ce3f"
     },
     "com.varlab.interactions": {
       "version": "ssh://git@bitbucket.org/VARLab/core-interactions.git#0.2.0",
