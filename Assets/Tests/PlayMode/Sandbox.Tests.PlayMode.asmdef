@@ -4,7 +4,10 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "com.varlab.interactions"
+        "CORESandbox",
+        "Unity.TextMeshPro",
+        "com.varlab.interactions",
+        "com.pirateparrot.outline"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

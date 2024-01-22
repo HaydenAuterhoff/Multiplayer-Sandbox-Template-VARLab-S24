@@ -1,0 +1,23 @@
+{
+    "name": "CORESandbox",
+    "rootNamespace": "",
+    "references": [
+        "GUID:e0cdf70e0672612409d1c39552e7a2a1",
+        "GUID:b765bae2a3178a34f927142c0c837f78",
+        "GUID:366c044d9e643a7499e9121b0e9b6952",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:8344be0049bdb914a8b25ff80fec5adf",
+        "GUID:e0cdf70e0672612409d1b39552e7a2a4",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:1d0983e8e0dfb6a48b2a8d30f7a4262c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
