@@ -202,13 +202,13 @@
       "hash": "dbc7d9c226f39065564db3c8bc6bbc9c417ad8fc"
     },
     "com.varlab.cloudsave": {
-      "version": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
+      "version": "ssh://git@bitbucket.org/VARLab/cloudsave.git#1.0.1",
       "depth": 0,
       "source": "git",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "0573c55a0ae1e0bf44e42b7b8b314677a5c0cd14"
+      "hash": "671099860a39cab49f106d64033aaf7534b1e718"
     },
     "com.varlab.core.interfaces": {
       "version": "ssh://git@bitbucket.org/VARLab/core-interfaces.git#upm",

@@ -30,18 +30,10 @@ public class SandboxSaveHandler : ExperienceSaveHandler
 
     // Properties
 
-    public ICloudSerializer Serializer
-    {
-        get { 
-            m_Serializer ??= new JsonCloudSerializer();
-            return m_Serializer;
-        }
-    }
-
     // Methods
 
     public void Start()
-    {       
+    {
         if (loadOnStartup) { Load(); }
 
         OnSaveComplete.AddListener((response) =>
@@ -65,7 +57,7 @@ public class SandboxSaveHandler : ExperienceSaveHandler
 
     public virtual string UpdateCache()
     {
-        DataCache = m_Serializer.Serialize();
+        DataCache = CloudSerializer.Serialize();
         return DataCache;
     }
 

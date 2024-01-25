@@ -14,7 +14,7 @@
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.ugui": "1.0.0",
     "com.varlab.analytics": "ssh://git@bitbucket.org/VARLab/analyticspackage.git#0.2.0",
-    "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#upm",
+    "com.varlab.cloudsave": "ssh://git@bitbucket.org/VARLab/cloudsave.git#1.0.1",
     "com.varlab.core.interfaces": "ssh://git@bitbucket.org/VARLab/core-interfaces.git#upm",
     "com.varlab.corecinema": "ssh://git@bitbucket.org/VARLab/core-cinema.git#0.1.4",
     "com.varlab.developertools": "ssh://git@bitbucket.org/VARLab/unity-developer-tools.git#1.0.0",
