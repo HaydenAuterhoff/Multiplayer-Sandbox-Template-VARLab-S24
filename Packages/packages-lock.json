@@ -15,11 +15,11 @@
       "hash": "614e9cc678f8968049591b6bee4ac458cc80e2e9"
     },
     "com.paradoxnotion.nodecanvas": {
-      "version": "ssh://git@bitbucket.org/VARLab/nodecanvas.git#3.2.6",
+      "version": "3.2.6",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "0c8ac00f528c0dced7ecab668ff167788e3b5bd2"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.pirateparrot.outline": {
       "version": "ssh://git@bitbucket.org/VARLab/easy-performant-outline.git#3.4.3",
@@ -38,11 +38,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.burst": {
-      "version": "1.8.11",
+      "version": "1.8.15",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.mathematics": "1.2.1"
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.modules.jsonserialize": "1.0.0"
       },
       "url": "https://packages.unity.com"
     },
@@ -63,7 +64,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.ide.rider": {
-      "version": "3.0.26",
+      "version": "3.0.28",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -157,7 +158,7 @@
     },
     "com.unity.test-framework": {
       "version": "1.1.33",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6",
@@ -167,7 +168,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.testtools.codecoverage": {
-      "version": "1.2.4",
+      "version": "1.2.5",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -177,7 +178,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.9",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -202,13 +203,13 @@
       "hash": "dbc7d9c226f39065564db3c8bc6bbc9c417ad8fc"
     },
     "com.varlab.cloudsave": {
-      "version": "ssh://git@bitbucket.org/VARLab/cloudsave.git#1.0.1",
+      "version": "1.0.1",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
-      "hash": "671099860a39cab49f106d64033aaf7534b1e718"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.varlab.core.interfaces": {
       "version": "ssh://git@bitbucket.org/VARLab/core-interfaces.git#upm",
@@ -221,41 +222,43 @@
       "hash": "95eb7f6ecb21d00e12e9607e2e8b3ae0193c8cee"
     },
     "com.varlab.corecinema": {
-      "version": "ssh://git@bitbucket.org/VARLab/core-cinema.git#0.1.4",
+      "version": "0.1.4",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {
         "com.unity.cinemachine": "2.8.9"
       },
-      "hash": "da66708048a1f2750dc8ef29aa842ce0c0066605"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.varlab.developertools": {
-      "version": "ssh://git@bitbucket.org/VARLab/unity-developer-tools.git#1.0.0",
+      "version": "1.0.0",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "cc4dc9eae257e81bffd6683af209026a2665ce3f"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.varlab.interactions": {
-      "version": "ssh://git@bitbucket.org/VARLab/core-interactions.git#0.2.0",
+      "version": "0.2.1",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "aaf7e76ecc53fdfa814c103aad9c315c554d0d01"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.varlab.nodecanvas.tools": {
-      "version": "ssh://git@bitbucket.org/VARLab/nodecanvas-tools.git#1.0.2",
+      "version": "1.0.2",
       "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "a7ac94211ba2ec5d77b4df046a1c91707c33dc83"
+      "source": "registry",
+      "dependencies": {
+        "com.paradoxnotion.nodecanvas": "3.2.6"
+      },
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.varlab.scorm": {
-      "version": "ssh://git@bitbucket.org/VARLab/scorm.git#0.2.3",
+      "version": "0.2.3",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "bb9df52d690e944ae8b155cb5ab0fea75f5a1089"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
