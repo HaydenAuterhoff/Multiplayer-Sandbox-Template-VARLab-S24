@@ -4,7 +4,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "IncludeAssemblies",
-                "value": "{\"m_Value\":\"Assembly-CSharp-Editor\"}"
+                "value": "{\"m_Value\":\"Assembly-CSharp,Assembly-CSharp-Editor,PlayFab,PlayFabEditorExtensions,PlayFabSDKEditor,UIAnalytics\"}"
             },
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
@@ -17,8 +17,23 @@
                 "value": "{\"m_Value\":\"{ProjectPath}\"}"
             },
             {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "PathsToInclude",
+                "value": "{\"m_Value\":\"{ProjectPath}/Assets/Scripts/**\"}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "PathsToExclude",
+                "value": "{\"m_Value\":\"{ProjectPath}/Assets/Scripts/CloudSave/**,{ProjectPath}/Assets/Scripts/Debug/**,{ProjectPath}/Assets/Scripts/Interactions/**,{ProjectPath}/Assets/Scripts/SCORM/**\"}"
+            },
+            {
                 "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "EnableCodeCoverage",
+                "value": "{\"m_Value\":true}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "GenerateAdditionalMetrics",
                 "value": "{\"m_Value\":true}"
             }
         ]

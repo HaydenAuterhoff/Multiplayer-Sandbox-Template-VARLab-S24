@@ -19,6 +19,6 @@ MonoBehaviour:
   SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
-  PanelIsShown: 1
+  PanelIsShown: 0
   curMainMenuIdx: 1
-  curSubMenuIdx: 1
+  curSubMenuIdx: 0

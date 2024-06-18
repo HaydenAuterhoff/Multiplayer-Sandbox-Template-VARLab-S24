@@ -8,11 +8,11 @@
       "hash": "8fc54a2cdf0c2169dd26852ea0fe202e11158f43"
     },
     "com.microsoft.playfab": {
-      "version": "ssh://git@bitbucket.org/VARLab/playfab-sdk.git#2.175.230901",
+      "version": "2.175.230901",
       "depth": 0,
-      "source": "git",
+      "source": "registry",
       "dependencies": {},
-      "hash": "614e9cc678f8968049591b6bee4ac458cc80e2e9"
+      "url": "http://upm.core.varlab.org:4873"
     },
     "com.paradoxnotion.nodecanvas": {
       "version": "3.2.6",
@@ -86,6 +86,15 @@
       "depth": 0,
       "source": "registry",
       "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.inputsystem": {
+      "version": "1.7.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.uielements": "1.0.0"
+      },
       "url": "https://packages.unity.com"
     },
     "com.unity.mathematics": {
@@ -194,13 +203,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.varlab.analytics": {
-      "version": "ssh://git@bitbucket.org/VARLab/analyticspackage.git#0.2.0",
-      "depth": 0,
-      "source": "git",
-      "dependencies": {},
-      "hash": "dbc7d9c226f39065564db3c8bc6bbc9c417ad8fc"
     },
     "com.varlab.cloudsave": {
       "version": "1.0.1",
