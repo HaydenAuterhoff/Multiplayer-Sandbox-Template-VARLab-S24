@@ -18,7 +18,7 @@
     "com.varlab.cloudsave": "1.0.1",
     "com.varlab.core.interfaces": "ssh://git@bitbucket.org/VARLab/core-interfaces.git#upm",
     "com.varlab.corecinema": "0.1.4",
-    "com.varlab.developertools": "1.0.0",
+    "com.varlab.developertools": "1.1.0",
     "com.varlab.interactions": "0.2.1",
     "com.varlab.nodecanvas.tools": "1.0.2",
     "com.varlab.scorm": "0.2.3",
