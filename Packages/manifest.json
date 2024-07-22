@@ -1,11 +1,10 @@
 {
   "dependencies": {
-    "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git",
     "com.microsoft.playfab": "2.175.230901",
     "com.paradoxnotion.nodecanvas": "3.2.6",
-    "com.pirateparrot.outline": "ssh://git@bitbucket.org/VARLab/easy-performant-outline.git#3.4.3",
+    "com.pirateparrot.outline": "3.4.4",
     "com.unity.ai.navigation": "1.1.5",
-    "com.unity.burst": "1.8.15",
+    "com.unity.burst": "1.8.16",
     "com.unity.ide.rider": "3.0.28",
     "com.unity.ide.visualstudio": "2.0.22",
     "com.unity.ide.vscode": "1.2.5",
@@ -16,7 +15,6 @@
     "com.unity.textmeshpro": "3.0.9",
     "com.unity.ugui": "1.0.0",
     "com.varlab.cloudsave": "1.0.1",
-    "com.varlab.core.interfaces": "ssh://git@bitbucket.org/VARLab/core-interfaces.git#upm",
     "com.varlab.corecinema": "0.1.4",
     "com.varlab.developertools": "1.1.0",
     "com.varlab.interactions": "0.2.1",
@@ -57,12 +55,13 @@
   "scopedRegistries": [
     {
       "name": "CORE",
-      "url": "http://upm.core.varlab.org:4873/",
+      "url": "http://upm.core.varlab.org:4873",
       "scopes": [
         "com.varlab",
         "com.paradoxnotion",
         "com.veriorpies",
         "com.firstgeargames",
+        "com.pirateparrot",
         "com.microsoft.playfab"
       ]
     }
