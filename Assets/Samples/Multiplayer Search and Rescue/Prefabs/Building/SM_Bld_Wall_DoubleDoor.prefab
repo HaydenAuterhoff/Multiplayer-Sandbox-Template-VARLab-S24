@@ -401,6 +401,8 @@ GameObject:
   - component: {fileID: 4197704782293887229}
   - component: {fileID: 3903664906532053921}
   - component: {fileID: 5840425312275339180}
+  - component: {fileID: 2117446466661921120}
+  - component: {fileID: 8247052228176447249}
   m_Layer: 0
   m_Name: SM_Bld_Wall_DoubleDoor
   m_TagString: Untagged
@@ -532,3 +534,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164f9328bdbbd2e41b67060639e2d36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2117446466661921120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436590287197576747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TransitionStateInfoList:
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 1783648139
+    TransitionDuration: 0.25
+    TriggerNameHash: -105190733
+    TransitionIndex: 0
+  - IsCrossFadeExit: 0
+    Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: -1358526777
+    TransitionDuration: 0.25
+    TriggerNameHash: -107287010
+    TransitionIndex: 1
+  m_Animator: {fileID: 3903664906532053921}
+--- !u!114 &8247052228176447249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6436590287197576747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

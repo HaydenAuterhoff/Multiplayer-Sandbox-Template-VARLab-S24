@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Samples/Lobby Networking - Netcode/Lobby.unity
     guid: 3b653e5aeb4486841a333efef3852623
+  - enabled: 1
+    path: Assets/Samples/Multiplayer Search and Rescue/Scenes/Playground.unity
+    guid: 6babc7d1d8f52d245aa3c74e45bf041c
   m_configObjects: {}

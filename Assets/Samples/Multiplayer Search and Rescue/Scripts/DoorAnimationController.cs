@@ -1,30 +1,40 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class DoorAnimationController : MonoBehaviour
+public class DoorAnimationController : NetworkBehaviour
 {
     //false = closed, true = open
-    private bool doorState = false;
+    private NetworkVariable<bool> doorState =
+        new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+
     private Animator doorAnimator;
+    private int playerCount;
 
     private void Start()
     {
         doorAnimator = GetComponent<Animator>();
     }
 
-    public void OpenDoor(Collider other)
+    [Rpc(SendTo.Server)]
+    public void OpenDoorRpc()
     {
-        if (other.tag == "Player" && doorState == false)
+        if (!IsServer) { return; }
+        playerCount++;
+        if (!doorState.Value)
         {
-            doorState = true;
+            doorState.Value = true;
             doorAnimator.SetTrigger("OpenDoors");
         }
     }
 
-    public void CloseDoor(Collider other)
+    [Rpc(SendTo.Server)]
+    public void CloseDoorRpc()
     {
-        if (other.tag == "Player" && doorState == true)
+        if (!IsServer) { return; }
+        playerCount--;
+        if (doorState.Value && playerCount == 0)
         {
-            doorState = false;
+            doorState.Value = false;
             doorAnimator.SetTrigger("CloseDoors");
         }
     }

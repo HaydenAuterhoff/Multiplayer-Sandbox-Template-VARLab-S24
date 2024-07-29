@@ -1,48 +1,70 @@
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     #region Variables
     //Serialized Variables
     [SerializeField] private float moveSpeed = 0, walkSpeed = 5, runSpeed = 7, gravity = -9.81f, fallingThreshold = -0.5f, groundCheckDistance = 0.5f, jumpHeight = 1.5f;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Animator animator;
+    [SerializeField] private CharacterController characterController;
 
     //Private Variables
     private Vector3 moveDirection, velocity;
     private Vector2 inputVector;
-
-    private CharacterController controller;
-    private Animator animator;
+    private PlayerInput PlayerInput;
     private bool isGrounded { get { return Physics.CheckSphere(transform.position, groundCheckDistance, groundMask); } }
-    
     #endregion
     #region Unity Methods
-    private void Start()
+    void Start()
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        if (!IsOwner) { return; }
+        PlayerInput = GetComponent<PlayerInput>();
+        PlayerInput.enabled = true;
+        characterController.enabled = true;
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
+        if (!IsOwner) { return; }
         ResetVelocityIfGrounded();
         HandleFalling();
         SetupNextPlayerMove();
         HandleGroundedActions();
         MovePlayer();
     }
-
     private void OnMove(InputValue movementValue)
     {
         inputVector = movementValue.Get<Vector2>();
     }
+
     private void OnJump()
     {
         Jump();
     }
     #endregion
     #region Helper Methods
+
+    private void ResetVelocityIfGrounded()
+    {
+        //If grounded, reset veloicty.y
+        if (isGrounded)
+        {
+            velocity.y = 0;
+        }
+    }
+    private void HandleGroundedActions()
+    {
+        if (isGrounded)
+        {
+            animator.SetTrigger("Landing");
+            HandleInput();
+        }
+    }
+
     private void HandleInput()
     {
         if (moveDirection != Vector3.zero && !Input.GetKey(KeyCode.LeftShift))
@@ -70,16 +92,12 @@ public class PlayerMovement : MonoBehaviour
             Dance(false);
         }
     }
-
-    private void ResetVelocityIfGrounded()
+    private void SetupNextPlayerMove()
     {
-        //If grounded, reset veloicty.y
-        if (isGrounded)
-        {
-            velocity.y = 0;
-        }
+        //Setup next player movement
+        moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
+        moveDirection = transform.TransformDirection(moveDirection);
     }
-
     private void HandleFalling()
     {
         //If we are falling, play falling animation
@@ -92,31 +110,19 @@ public class PlayerMovement : MonoBehaviour
             Falling(false);
         }
     }
-
-    private void SetupNextPlayerMove()
+    #endregion
+    #region Animation Methods
+    private void Falling(bool value)
     {
-        //Setup next player movement
-        moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
-        moveDirection = transform.TransformDirection(moveDirection);
-    }
-
-    private void HandleGroundedActions()
-    {
-        if (isGrounded)
-        {
-            animator.SetTrigger("Landing");
-            HandleInput();
-        }
+        animator.SetBool("Falling", value);
     }
 
     private void MovePlayer()
     {
-        controller.Move(moveDirection * Time.deltaTime);
+        characterController.Move(moveDirection * Time.deltaTime);
         velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+        characterController.Move(velocity * Time.deltaTime);
     }
-    #endregion
-    #region Setting Animations
     private void Idle()
     {
         animator.SetFloat("Speed", 0);
@@ -139,12 +145,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger("Jump");
         velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
     }
-
-    private void Falling(bool value)
-    {
-        animator.SetBool("Falling", value);
-    }
-
     private void Dance(bool value)
     {
         animator.SetBool("IsDancing", value);

@@ -6,11 +6,18 @@ public class DoorColliderNotifier : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        parentController.OpenDoor(other);
+        if (other.tag == "Player")
+        {
+            parentController.OpenDoorRpc();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        parentController.CloseDoor(other);
+        if (other.tag == "Player")
+        {
+            parentController.CloseDoorRpc();
+        }
+
     }
 }
