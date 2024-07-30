@@ -3,6 +3,7 @@ using PlayFab.ClientModels;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using VARLab.Analytics;
 
 namespace VARLab.Sandbox.Samples
 {
@@ -13,6 +14,11 @@ namespace VARLab.Sandbox.Samples
     /// </summary>
     public class GameEvents : MonoBehaviour
     {
+        public const string EventNameScored = "player_scored";
+        public const string EventKeyScored = "Score";
+        public const string EventNameCompleted = "complete_event";
+        public const string EventKeyCompleted = "completed_key";
+        public const string EventValueCompleted = "game_completed";
 
         [Tooltip("The username used to login to the Analytics platform")]
         public string Username = "Sandbox";
@@ -44,14 +50,8 @@ namespace VARLab.Sandbox.Samples
         /// </remarks>
         public void SendLoginEvent()
         {
-            LoginWithCustomIDRequest request = new()
-            {
-                CustomId = Username,
-                CreateAccount = true,
-            };
-
-            PlayFabClientAPI.LoginWithCustomID(request,
-                LoginResultHandler, GenericErrorHandler);
+            CoreAnalytics.Initialize();
+            CoreAnalytics.LoginUser(Username, LoginResultHandler, GenericErrorHandler);
         }
 
         /// <summary>
@@ -65,10 +65,12 @@ namespace VARLab.Sandbox.Samples
         /// <param name="input">
         ///     The player's current score, as an integer
         /// </param>
-        public void SendScoreEvent(int input)
+        public void SendScoreEvent(int value)
         {
-            PlayFabClientAPI.WritePlayerEvent(
-                new ScoreEventRequest(input),
+            CoreAnalytics.CustomEvent(
+                EventNameScored,
+                EventKeyScored,
+                value,
                 ClientEventResponseHandler,
                 GenericErrorHandler);
         }
@@ -83,8 +85,10 @@ namespace VARLab.Sandbox.Samples
         /// </remarks>
         public void SendCompleteEvent()
         {
-            PlayFabClientAPI.WritePlayerEvent(
-                new GameCompleteEventRequest(),
+            CoreAnalytics.CustomEvent(
+                EventNameCompleted,
+                EventKeyCompleted,
+                EventValueCompleted,
                 ClientEventResponseHandler,
                 GenericErrorHandler);
         }

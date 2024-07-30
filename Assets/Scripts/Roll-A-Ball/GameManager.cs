@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+
 namespace VARLab.Sandbox.Samples
 {
 
@@ -94,6 +95,7 @@ namespace VARLab.Sandbox.Samples
         public void InitializeGame()
         {
             if (!enabled) { return; }
+            
             Initialized?.Invoke();
         }
 

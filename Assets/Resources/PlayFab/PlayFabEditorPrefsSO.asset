@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0199c11aa6f514784c5c69cd8378d8, type: 3}
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
-  DevAccountEmail: 
-  DevAccountToken: 
+  DevAccountEmail: varlabcc@gmail.com
+  DevAccountToken: y63dbur3d1ksgic5una6ashakrixff14g6f5nrt65m8mpbpctbair7sr8ekspd11r6zffm47unterqp6mt9m8zhmikfoewqoq16gz7jk6o8iizokbk6dbg9ung5is97dqbg4n89u5foy8oxk6ksyi478jhksqoamjiqsze3ypmr6rh5fai9x1fkub8fd9t5ed9tbd84o
   AadAuthorization: 
-  SelectedStudio: 
+  SelectedStudio: VARLab DLX
   SdkPath: 
   EdExPath: 
   LocalCloudScriptPath: 
