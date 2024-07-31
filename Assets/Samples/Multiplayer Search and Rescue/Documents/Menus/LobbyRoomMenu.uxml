@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/SandboxStyleSheet.uss?fileID=7433441132597879392&amp;guid=a3202260e6a38d243950bdc52a395e55&amp;type=3#SandboxStyleSheet" />
+    <ui:VisualElement name="lobbyRoomMenu" style="flex-grow: 1; justify-content: space-between;">
+        <ui:Label tabindex="-1" text="Room Code: ABCDE" parse-escape-sequences="true" display-tooltip-when-elided="true" name="labelRoomCode" />
+        <ui:Label tabindex="-1" text="Players (X / Y)" parse-escape-sequences="true" display-tooltip-when-elided="true" name="labelPlayerCount" />
+        <ui:ListView name="playersListView" style="flex-grow: 1;" />
+        <ui:VisualElement name="buttonBar" style="flex-direction: row; flex-shrink: 0; justify-content: space-around; flex-grow: 0;" />
+        <ui:VisualElement name="buttonBar" style="flex-direction: row; align-self: stretch; flex-shrink: 0;">
+            <ui:VisualElement name="navigationLeft" style="flex-direction: row; justify-content: flex-start; flex-grow: 1; flex-shrink: 0;">
+                <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonBack" style="align-self: flex-end;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="navigationRight" style="flex-direction: row; flex-shrink: 0; flex-grow: 1; justify-content: flex-end;">
+                <ui:Button text="Ready" parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonReady" />
+                <ui:Button text="Start" parse-escape-sequences="true" display-tooltip-when-elided="true" tooltip="Play once all players are ready" name="buttonStart" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

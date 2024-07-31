@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/SandboxStyleSheet.uss?fileID=7433441132597879392&amp;guid=a3202260e6a38d243950bdc52a395e55&amp;type=3#SandboxStyleSheet" />
+    <ui:VisualElement name="createLobbyMenu" style="flex-grow: 1; flex-shrink: 0; flex-direction: column; justify-content: space-between;">
+        <ui:VisualElement style="flex-shrink: 0; align-items: stretch;">
+            <ui:Label tabindex="-1" text="Create Room" parse-escape-sequences="true" display-tooltip-when-elided="true" style="font-size: 24px;" />
+            <ui:VisualElement style="flex-direction: row;">
+                <ui:TextField picking-mode="Ignore" label="Room Name" value="A B C D" name="roomNameField" style="flex-direction: column; flex-grow: 1;" />
+                <ui:IntegerField label="Max Players" value="1" name="maxPlayersField" style="flex-direction: column; flex-grow: 1;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="buttonBar" style="flex-grow: 0; flex-shrink: 0; flex-direction: row; justify-content: space-between;">
+            <ui:Button text="Back" parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonBack" style="align-self: flex-end;" />
+            <ui:Button text="Create" parse-escape-sequences="true" display-tooltip-when-elided="true" name="buttonCreate" style="align-self: center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

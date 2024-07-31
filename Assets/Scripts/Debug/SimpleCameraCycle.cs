@@ -1,5 +1,4 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,11 +13,24 @@ public class SimpleCameraCycle : MonoBehaviour
     public const int PriorityHigh = 100;
     public const int PriorityLow = 10;
 
+    [Header("Runtime")]
+    public bool ManualCycle = true;
+    public bool AutoCycle = true;
+    [Tooltip("Time in seconds between automatic camera cycles")]
+    public float CycleDelay = 7f;
+
+    [Header("Setup")]
     [Tooltip("List of virtual cameras in the scene")]
     public List<CinemachineVirtualCamera> Cameras;
 
+
     private int index = 0;
+    private float cycleElapsed = 0f;
     private CinemachineVirtualCamera current;
+
+    // Properties
+    public CinemachineVirtualCamera Current => current;
+
 
     /// <summary>
     ///     Get reference to initial 'current' camera on Start
@@ -27,7 +39,7 @@ public class SimpleCameraCycle : MonoBehaviour
     {
         if (Cameras.Count == 0)
         {
-            Debug.LogWarning("No virtual cameras to control");
+            Debug.LogWarning("No virtual cameras to control");            
         }
 
         foreach (var cam in Cameras)
@@ -45,28 +57,54 @@ public class SimpleCameraCycle : MonoBehaviour
     /// </summary>
     void Update()
     {
-        int count = Cameras.Count;
+        if (Cameras.Count == 0) { return; }
 
-        if (count < 1) { return; }
-        
+        if (CheckInput())
+        {
+            cycleElapsed = 0f;
+            return;
+        }
+
+        if (AutoCycle)
+        {
+            cycleElapsed += Time.deltaTime;
+            if (cycleElapsed >= CycleDelay)
+            {
+                Cycle();
+                cycleElapsed = 0f;
+            }
+        }
+    }
+
+    bool CheckInput()
+    {
         // Need to add count so that the result after mod will always be non-negative
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            index = (index - 1 + count) % count;
-            Switch(Cameras[index]);
+            Cycle(forward: false);
+            return true;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            index = (index + 1 + count) % count;
-            Switch(Cameras[index]);
+            Cycle(forward: true);
+            return true;
         }
+
+        return false;
+    }
+
+    private void Cycle(bool forward = true)
+    {
+        int count = Cameras.Count;
+        index = (index + (forward ? 1 : -1) + count) % count;
+        Switch(Cameras[index]);
     }
 
     /// <summary>
     ///     Switches the given <paramref name="target"/> to be the current
     ///     virtual camera
     /// </summary>
-    public void Switch(CinemachineVirtualCamera target)
+    private void Switch(CinemachineVirtualCamera target)
     {
         current.Priority = PriorityLow;
 

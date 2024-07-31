@@ -18,7 +18,7 @@ public class PlayerMovement : NetworkBehaviour
     private bool isGrounded { get { return Physics.CheckSphere(transform.position, groundCheckDistance, groundMask); } }
     #endregion
     #region Unity Methods
-    void Start()
+    private void Start()
     {
         if (!IsOwner) { return; }
         PlayerInput = GetComponent<PlayerInput>();
@@ -27,7 +27,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!IsOwner) { return; }
         ResetVelocityIfGrounded();

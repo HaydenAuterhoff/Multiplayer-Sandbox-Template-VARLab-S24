@@ -5,55 +5,56 @@ using Unity.Services.Core;
 using UnityEngine;
 
 /// <summary>
-/// This class is meant to help with anything regarding the authentication process. It is a static class
-/// with helper methods, it can be added on to or changed if needed
+///     This static helper class provides functions for the authentication process.
 /// </summary>
 public static class AuthenticationHelper
 {
-    public static async Task InitializeUnityServicesTask()
+
+    /// <summary>
+    ///     Attempts to initialize Unity services
+    /// </summary>
+    public static async Task InitializeUnityServicesAsync()
     {
         //Ensure we are not already initialized
-        if (UnityServices.State == ServicesInitializationState.Uninitialized)
-        {
-            //Setup options variable
-            var options = new InitializationOptions();
-
-            try
-            {
-                //Initialize with UnityServices
-                await UnityServices.InitializeAsync(options);
-                Debug.Log("Initialization successful");
-
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
-        else
+        if (UnityServices.State != ServicesInitializationState.Uninitialized)
         {
             Debug.Log("UnityServices already initialized");
+            return;
+        }
+
+        //Setup options variable
+        var options = new InitializationOptions();
+
+        try
+        {
+            //Initialize with UnityServices
+            await UnityServices.InitializeAsync(options);
+            Debug.Log("Initialization successful");
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
         }
     }
-    public static async Task SignInAnonymouslyTask()
+
+    public static async Task SignInAnonymouslyAsync()
     {
-        //Check if we are singed in already
-        if (!AuthenticationService.Instance.IsSignedIn)
-        {
-            try
-            {
-                //If we are not signed in, sign in
-                await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                Debug.Log("Signed in successfully");
-            }
-            catch (Exception e)
-            {
-                Debug.LogException(e);
-            }
-        }
-        else
+        //Check if we are already signed in 
+        if (AuthenticationService.Instance.IsSignedIn)
         {
             Debug.Log("Already signed in");
+            return;
+        }
+
+        try
+        {
+            // If we are not signed in, sign in
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            Debug.Log("Signed in successfully");
+        }
+        catch (Exception e)
+        {
+            Debug.LogException(e);
         }
     }
 }
