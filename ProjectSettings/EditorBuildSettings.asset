@@ -17,4 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Samples/Multiplayer Search and Rescue/Scenes/Playground.unity
     guid: 6babc7d1d8f52d245aa3c74e45bf041c
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5add852776f358d489632d6406f17390,
+      type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a086983287eb0054c89c411852c679e7,
+      type: 2}
