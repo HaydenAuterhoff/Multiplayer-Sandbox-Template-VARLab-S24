@@ -18,18 +18,27 @@ EditorBuildSettings:
     path: Assets/Samples/Multiplayer Search and Rescue/Scenes/Playground.unity
     guid: 6babc7d1d8f52d245aa3c74e45bf041c
   - enabled: 0
-    path: Assets/Samples/Netcode For GameObject Examples/Movement (Client Authority)/Movement
-      (Client Authority).unity
+    path: Assets/Samples/Netcode For GameObject Examples/Movement Examples/Movement
+      (Client Authority)/Movement (Client Authority).unity
     guid: 8dc2767323989a34eac445aed395cfc0
   - enabled: 0
     path: Assets/Samples/Netcode For GameObject Examples/NetworkVariable/NetworkVariable.unity
     guid: 7c76a00a7708ba24f9bb913edaadf54d
   - enabled: 0
-    path: Assets/Samples/Netcode For GameObject Examples/Movement (Server Authority)/Movement
-      (Server Authority).unity
+    path: Assets/Samples/Netcode For GameObject Examples/Movement Examples/Movement
+      (Server Authority)/Movement (Server Authority).unity
     guid: c088029e659ecc34fa283d1070d9d9cd
+  - enabled: 0
+    path: Assets/Samples/Netcode For GameObject Examples/Animation Examples/Animation
+      (Client Authority)/Animation (Client Authority).unity
+    guid: 5886c1b2e05fb9a4b85d6789b94e74ea
+  - enabled: 1
+    path: Assets/Samples/Netcode For GameObject Examples/Animation Examples/Animation
+      (Server Authority)/Animation (Server Authority).unity
+    guid: cac860972c1cfe142b589ff78c5a73d2
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5add852776f358d489632d6406f17390,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: a086983287eb0054c89c411852c679e7,
       type: 2}
+  m_UseUCBPForAssetBundles: 0
