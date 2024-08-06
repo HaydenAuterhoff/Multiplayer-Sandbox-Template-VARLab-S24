@@ -36,6 +36,9 @@ EditorBuildSettings:
     path: Assets/Samples/Netcode For GameObject Examples/Animation Examples/Animation
       (Server Authority)/Animation (Server Authority).unity
     guid: cac860972c1cfe142b589ff78c5a73d2
+  - enabled: 1
+    path: Assets/Samples/Netcode For GameObject Examples/RPCs/RPC Examples.unity
+    guid: 57780133ad944c94ab085bbf91f8f9f0
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5add852776f358d489632d6406f17390,
       type: 2}
