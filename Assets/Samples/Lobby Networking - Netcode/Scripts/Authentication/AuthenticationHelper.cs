@@ -4,6 +4,10 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using ParrelSync;
+#endif
+
 /// <summary>
 ///     This static helper class provides functions for the authentication process.
 /// </summary>
@@ -24,6 +28,12 @@ public static class AuthenticationHelper
 
         //Setup options variable
         var options = new InitializationOptions();
+
+        //Check if we are a ParrelSync clone so we can use Unity Services correctly
+#if UNITY_EDITOR
+        if (ClonesManager.IsClone()) options.SetProfile(ClonesManager.GetArgument());
+        else options.SetProfile("Primary");
+#endif
 
         try
         {
