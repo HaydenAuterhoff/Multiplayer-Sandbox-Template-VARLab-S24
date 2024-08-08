@@ -22,20 +22,6 @@ namespace VARLab.Sandbox.SAR
         private InputAction clickAction;
 
 
-        private void Start()
-        {
-            if (!virtualCamera)
-            {
-                virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
-            }
-
-            if (!input)
-            {
-                input = GetComponent<PlayerInput>();
-            }
-        }
-
-
         public override void OnNetworkSpawn()
         {
             Debug.Log("Player camera controller networkspawned");
@@ -53,6 +39,16 @@ namespace VARLab.Sandbox.SAR
 
         public void Initialize()
         {
+            if (!virtualCamera)
+            {
+                virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+            }
+
+            if (!input)
+            {
+                input = GetComponent<PlayerInput>();
+            }
+
             virtualCamera.Priority = priority;
             lookAction = input.actions.FindAction("Look");
             clickAction = input.actions.FindAction("Attack");

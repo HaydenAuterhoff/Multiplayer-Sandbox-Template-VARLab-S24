@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3807223503617168360}
   - component: {fileID: 1065337545642022398}
   - component: {fileID: 8360309888529905032}
+  - component: {fileID: 4386739477230595369}
   m_Layer: 0
   m_Name: SM_Bld_Wall_DoubleDoor_L
   m_TagString: Untagged
@@ -110,6 +111,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 100911705678141546, guid: 3f514239b7c3f52448413feea8f856cf, type: 3}
+--- !u!114 &4386739477230595369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849534578774610780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691c4b1ca34871c40ac922ff8e86ea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentController: {fileID: 5840425312275339180}
 --- !u!1 &1199931808254610083
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,6 +136,7 @@ GameObject:
   - component: {fileID: 2176763635543350949}
   - component: {fileID: 3432198114637420114}
   - component: {fileID: 4005525296599334580}
+  - component: {fileID: 6313534775877725354}
   m_Layer: 0
   m_Name: SM_Bld_Wall_DoubleDoor_R
   m_TagString: Untagged
@@ -220,6 +235,19 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5626480696640733714, guid: 3f514239b7c3f52448413feea8f856cf, type: 3}
+--- !u!114 &6313534775877725354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1199931808254610083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691c4b1ca34871c40ac922ff8e86ea24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentController: {fileID: 5840425312275339180}
 --- !u!1 &1792942434191785649
 GameObject:
   m_ObjectHideFlags: 0

@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 107706528}
   - component: {fileID: 107706525}
   m_Layer: 0
-  m_Name: Muliplayer Service
+  m_Name: Multiplayer Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
       - {fileID: 11400000, guid: 1cab3cbc509ccb242a1d85312ea8b874, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
-    ConnectionApproval: 0
+    ConnectionApproval: 1
     ConnectionData: 
     EnableTimeResync: 0
     TimeResyncInterval: 30
@@ -234,6 +234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb2badac7d57b8d4d825169ed9904c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Transport: {fileID: 107706525}
 --- !u!114 &107706529
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,8 +672,8 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
 --- !u!114 &1974313827
@@ -703,7 +704,64 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  NetworkedGameStarted:
+  LobbyCreated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1094974323}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  LobbyJoined:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1094974323}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  LobbyLeft:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1094974323}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 23481248276120054}
+        m_TargetAssemblyTypeName: VARLab.Multiplayer.NetworkSceneManager, VARLab.Multiplayer
+        m_MethodName: UnloadScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  GameStarted:
     m_PersistentCalls:
       m_Calls: []
   LobbyRoomPlayersUpdated:
@@ -786,10 +844,10 @@ MonoBehaviour:
   GlobalObjectIdHash: 2685444307
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
+  SynchronizeTransform: 0
   ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
+  SceneMigrationSynchronization: 0
+  SpawnWithObservers: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
 --- !u!1660057539 &9223372036854775807

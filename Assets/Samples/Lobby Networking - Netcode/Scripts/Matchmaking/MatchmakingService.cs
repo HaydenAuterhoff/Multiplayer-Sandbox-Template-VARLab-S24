@@ -13,7 +13,7 @@ using Unity.Services.Relay.Models;
 using UnityEngine;
 using VARLab.Multiplayer.Lobbies;
 
-public class MatchmakingService : MonoBehaviour
+public class MatchmakingService : MonoBehaviour, IDisposable
 {
     private const int HeartbeatInterval = 15;
     private const int LobbyRefreshRate = 2;
@@ -26,24 +26,31 @@ public class MatchmakingService : MonoBehaviour
     public static MatchmakingService Instance { get; private set; }
     public static Lobby CurrentLobby { get; private set; }
 
-    private static UnityTransport Transport;
-
     private static CancellationTokenSource heartbeatSource;
     private static CancellationTokenSource updateLobbySource;
 
-
     public event Action<Lobby> CurrentLobbyRefreshed;
 
+    public UnityTransport Transport;
+
     public string JoinCode => CurrentLobby.Data[RelayCode].Value;
+
 
     private void Awake()
     {
         if (Instance == null) { Instance = this; }
-        Transport = FindFirstObjectByType<UnityTransport>();
+
+        if (!Transport)
+        {
+            Transport = GetComponent<UnityTransport>();
+        }
     }
 
-    // TODO replace this with Reset(), review static members
-    public void ResetStatics()
+
+    /// <summary>
+    ///     Disposes of resources held by the MatchmakingService
+    /// </summary>
+    public void Dispose()
     {
         if (Transport != null)
         {
@@ -55,20 +62,33 @@ public class MatchmakingService : MonoBehaviour
 
     // Lobby query functions
 
+    /// <summary>
+    ///     Cached query options for lobby query. If additional query options are desired through UI,
+    ///     additional options can be defined
+    /// </summary>
+    private readonly QueryLobbiesOptions queryOptions = new()
+    {
+        Count = 15,
+
+        Filters = new()
+        {
+            new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT),
+            new(QueryFilter.FieldOptions.IsLocked, "0", QueryFilter.OpOptions.EQ)
+        }
+    };
+
+    /// <summary>
+    ///     Async function that queries the Lobbies service for available lobbies 
+    ///     which fit the provided query options
+    /// </summary>
+    /// <returns>
+    ///     Uses the UniTask library to provide async Task functionality, 
+    ///     returning a list of Lobby objects 
+    /// </returns>
     public async UniTask<List<Lobby>> GatherLobbies()
     {
-        var options = new QueryLobbiesOptions
-        {
-            Count = 15,
-
-            Filters = new List<QueryFilter>
-            {
-                new(QueryFilter.FieldOptions.AvailableSlots, "0", QueryFilter.OpOptions.GT),
-                new(QueryFilter.FieldOptions.IsLocked, "0", QueryFilter.OpOptions.EQ)
-            }
-        };
-        var allLobbies = await Lobbies.Instance.QueryLobbiesAsync(options);
-        return allLobbies.Results;
+        var lobbyQuery = await Lobbies.Instance.QueryLobbiesAsync(queryOptions);
+        return lobbyQuery.Results;
     }
 
     public async UniTask CreateLobbyWithAllocation(LobbyData data)
@@ -144,9 +164,15 @@ public class MatchmakingService : MonoBehaviour
         Lobby targetLobby = queryResponse.Results.FirstOrDefault(lobby =>
         lobby.Data.TryGetValue(RelayCode, out DataObject dataObject) && dataObject.Value == gameCode);
 
-        if (targetLobby != null) { await JoinLobbyWithAllocation(targetLobby.Id); }
+        if (targetLobby != null) 
+        { 
+            await JoinLobbyWithAllocation(targetLobby.Id); 
+        }
 
-        if (targetLobby.Data.TryGetValue(GameStatus, out DataObject dataObject)) { targetLobbyStatus = dataObject.Value; }
+        if (targetLobby.Data.TryGetValue(GameStatus, out DataObject dataObject)) 
+        { 
+            targetLobbyStatus = dataObject.Value; 
+        }
 
         return targetLobbyStatus;
     }
@@ -211,12 +237,12 @@ public class MatchmakingService : MonoBehaviour
         heartbeatSource = new CancellationTokenSource();
         while (!heartbeatSource.IsCancellationRequested && CurrentLobby != null)
         {
-            await Lobbies.Instance.SendHeartbeatPingAsync(CurrentLobby.Id);
+            await Lobbies.Instance?.SendHeartbeatPingAsync(CurrentLobby.Id);
             await UniTask.Delay(HeartbeatInterval * 1000);
         }
     }
 
-    private void StopConnectionHeartbeat() => heartbeatSource.Cancel();
+    private void StopConnectionHeartbeat() => heartbeatSource?.Cancel();
 
     private async void StartBackgroundLobbyRefresh()
     {
@@ -225,7 +251,7 @@ public class MatchmakingService : MonoBehaviour
         await UniTask.Delay(LobbyRefreshRate * 1000);
         while (!updateLobbySource.IsCancellationRequested && CurrentLobby != null)
         {
-            CurrentLobby = await Lobbies.Instance.GetLobbyAsync(CurrentLobby.Id);
+            CurrentLobby = await Lobbies.Instance?.GetLobbyAsync(CurrentLobby.Id);
             CurrentLobbyRefreshed?.Invoke(CurrentLobby);
             await UniTask.Delay(LobbyRefreshRate * 1000);
         }

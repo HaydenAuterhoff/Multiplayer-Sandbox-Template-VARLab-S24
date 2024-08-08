@@ -6,7 +6,7 @@ namespace VARLab.Multiplayer
 {
     public class NetworkSceneManager : NetworkBehaviour
     {
-        
+
 #if UNITY_EDITOR
         public UnityEditor.SceneAsset SceneAsset;
         private void OnValidate()
@@ -27,12 +27,13 @@ namespace VARLab.Multiplayer
 
         public override void OnNetworkSpawn()
         {
-            if (IsServer && !string.IsNullOrEmpty(m_SceneName))
+            if (!enabled) 
             {
-                NetworkManager.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
-                var status = NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Additive);
-                CheckStatus(status, isLoading: true);
+                Debug.Log("NetworkSceneManager disabled. Will not load shared scene");
+                return; 
             }
+
+            LoadScene();
 
             base.OnNetworkSpawn();
         }
@@ -88,6 +89,19 @@ namespace VARLab.Multiplayer
                         }
                         break;
                     }
+            }
+        }
+
+        public void LoadScene()
+        {
+            if (IsServer && !string.IsNullOrEmpty(m_SceneName))
+            {
+                NetworkManager.SceneManager.ActiveSceneSynchronizationEnabled = true;
+                NetworkManager.SceneManager.SetClientSynchronizationMode(LoadSceneMode.Additive);
+
+                NetworkManager.SceneManager.OnSceneEvent += SceneManager_OnSceneEvent;
+                var status = NetworkManager.SceneManager.LoadScene(m_SceneName, LoadSceneMode.Additive);
+                CheckStatus(status, isLoading: true);
             }
         }
 

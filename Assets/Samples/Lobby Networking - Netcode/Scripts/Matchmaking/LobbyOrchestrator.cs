@@ -18,11 +18,13 @@ namespace VARLab.Multiplayer.Lobbies
         [Header("Events")]
         public UnityEvent<LobbyData> LobbyRefreshed;
 
-        public UnityEvent<object> NetworkedGameStarted;
+        public UnityEvent<LobbyData> LobbyCreated;
 
-        public UnityEvent<Dictionary<ulong, bool>> LobbyRoomPlayersUpdated;
+        public UnityEvent<LobbyData> LobbyJoined;
 
-        private readonly Dictionary<ulong, bool> playersInRoomLobby = new();
+        public UnityEvent<LobbyData> LobbyLeft;
+
+        public UnityEvent<object> GameStarted;
 
         private string errorString;
 
@@ -30,13 +32,10 @@ namespace VARLab.Multiplayer.Lobbies
 
         public void Start()
         {
-            NetworkObject.DestroyWithScene = true;
-
-
             MatchmakingService.Instance.CurrentLobbyRefreshed += (lobby) => LobbyRefreshed?.Invoke(new LobbyData(lobby));
 
-            //No ApprovalConnection warning
-            NetworkManager.Singleton.ConnectionApprovalCallback = ApprovalCheck;
+            // Define ConnectionApproval when a user joins the lobby
+            NetworkManager.Singleton.ConnectionApprovalCallback += ApproveConnection;
         }
 
         public override void OnDestroy()
@@ -46,7 +45,7 @@ namespace VARLab.Multiplayer.Lobbies
             // Only during the room lobby
             if (NetworkManager.Singleton)
             {
-                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectCallback;
+                NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnected;
             }
             else if (MatchmakingService.Instance)
             {
@@ -54,6 +53,69 @@ namespace VARLab.Multiplayer.Lobbies
                 _ = MatchmakingService.Instance.LeaveLobby();
             }
         }
+
+
+        /// <summary>
+        ///     NetworkBehaviour callback executed when network is connected
+        /// </summary>
+        public override void OnNetworkSpawn()
+        {
+            Debug.Log("LobbyOrchestrator spawned in network");
+
+            if (IsServer)
+            {
+                Debug.Log("Setting up ClientConnectedCallback");
+                NetworkManager.Singleton.OnClientConnectedCallback += HandleConnectedClient;
+            }
+
+            Debug.Log("Setting up ClientDisconnectedCallback");
+            //Client uses this in case host destroys the lobby
+            NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnected;
+        }
+
+        /// <summary>
+        ///     Listener for when a client has connected to the server
+        /// </summary>
+        /// <param name="playerId"></param>
+        protected void HandleConnectedClient(ulong playerId)
+        {
+            Debug.Log($"Client {playerId} has connected");
+        }
+
+        /// <summary>
+        ///     Listener for when a client has disconnected. 
+        ///     All clients should be subscribed.
+        /// </summary>
+        /// <param name="playerId"></param>
+        private void HandleClientDisconnected(ulong playerId)
+        {
+            // Listener for the server. Handle if disconnect is Server or Clients
+            if (IsServer) 
+            {
+                Debug.Log($"Client {playerId} disconnected from server");
+            }
+            // Listener fr the client. Handles the client that disconnects
+            else 
+            {
+                Debug.Log($"Client {playerId} disconnected");
+            }
+        }
+
+        /// <summary>
+        ///     Allows for accepting/declining users as they join the lobby. 
+        ///     Custom player prefabs can be loaded here
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="response"></param>
+        private void ApproveConnection(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
+        {
+            Debug.Log($"Player {request.ClientNetworkId} connecting...");
+            response.PlayerPrefabHash = null;
+            response.Approved = true;
+            response.CreatePlayerObject = true;
+            response.Pending = false;
+        }
+
 
         /// <summary>
         ///     Attempts to create a new lobby room using the provided event data
@@ -82,6 +144,9 @@ namespace VARLab.Multiplayer.Lobbies
                     args.LobbyData = new LobbyData(MatchmakingService.CurrentLobby);
                     Debug.Log($"End of TryCreateLobby with success response. {args.LobbyData.JoinCode} {args.LobbyData.Id}");
                     args.Success?.Invoke(args.LobbyData);
+
+                    // Success event broadcast
+                    LobbyCreated?.Invoke(args.LobbyData);
                     return;
                 }
 
@@ -126,15 +191,27 @@ namespace VARLab.Multiplayer.Lobbies
 
         public async void TryJoinLobby(LobbyRequestEventArgs args)
         {
+            Debug.Log("Trying to join the lobby...");
+
             try
             {
                 await MatchmakingService.Instance.JoinLobbyWithAllocation(args.LobbyData.Id);
 
+                if (MatchmakingService.CurrentLobby == null)
+                {
+                    Debug.LogError("Error getting current Lobby");
+                }
+
                 if (NetworkManager.Singleton.StartClient())
                 {
                     // Client start success
+                    Debug.Log("Client start success");
+
                     args.LobbyData = new LobbyData(MatchmakingService.CurrentLobby);
                     args.Success?.Invoke(args.LobbyData);
+
+                    // Success event broadcast
+                    LobbyJoined?.Invoke(args.LobbyData);
                     return;
                 }
 
@@ -157,6 +234,9 @@ namespace VARLab.Multiplayer.Lobbies
                 await MatchmakingService.Instance.LeaveLobby();
                 NetworkManager.Singleton.Shutdown();
                 args.Success?.Invoke(null);
+
+                // Success event broadcast
+                LobbyLeft?.Invoke(null);
                 return;
             }
             catch (Exception ex)
@@ -173,18 +253,19 @@ namespace VARLab.Multiplayer.Lobbies
             if (MatchmakingService.CurrentLobby == null)
             {
                 // throw error, no lobby
+                Debug.LogWarning("Attempting to start game with no active lobby. This is not a valid action");
                 return;
             }
 
             if (args.LobbyData.Id != MatchmakingService.CurrentLobby.Id)
             {
                 // throw error, invalid lobby
+                Debug.LogWarning("Game started with incorrect lobby data. This is not a valid action");
                 return;
             }
 
             try
             {
-
                 if (LockLobbyOnStart)
                 {
                     await MatchmakingService.Instance.LockLobby();
@@ -192,7 +273,7 @@ namespace VARLab.Multiplayer.Lobbies
 
                 Debug.Log("Game started!");
                 args.Success?.Invoke(new LobbyData(MatchmakingService.CurrentLobby));
-                NetworkedGameStarted?.Invoke(this);
+                GameStarted?.Invoke(this);
                 return;
             }
             catch (Exception ex)
@@ -203,157 +284,5 @@ namespace VARLab.Multiplayer.Lobbies
 
             args.Error?.Invoke(errorString);
         }
-
-        private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)
-        {
-            response.Approved = true;
-            response.Pending = false;
-        }
-
-
-
-        #region Room
-
-
-        public override void OnNetworkSpawn()
-        {
-            Debug.Log("LobbyOrchestrator.OnNetworkSpawn");
-
-            if (IsServer)
-            {
-                Debug.Log("Setting up ClientConnectedCallback");
-                NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
-                playersInRoomLobby.Add(NetworkManager.LocalClientId, false);
-                UpdateInterface();
-            }
-
-            //NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-
-            Debug.Log("Setting up ClientDisconnectedCallback");
-
-            //Client uses this in case host destroys the lobby
-            NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectCallback;
-        }
-
-        private void OnClientConnectedCallback(ulong playerId)
-        {
-            Debug.Log("Calling ClientConnectedCallback");
-
-            if (!IsServer)
-                return;
-
-            //Add locally
-            if (!playersInRoomLobby.ContainsKey(playerId))
-                playersInRoomLobby.Add(playerId, false);
-
-            PropagateToClients();
-            UpdateInterface();
-        }
-
-        public void PropagateToClients()
-        {
-            foreach (var player in playersInRoomLobby)
-            {
-                UpdatePlayersClientRpc(player.Key, player.Value);
-            }
-        }
-
-
-
-        private void OnClientDisconnectCallback(ulong playerId)
-        {
-            Debug.Log("Is OnClientDisconnectCallback being called?");
-
-            if (IsServer) //Event Listener is for server --> Handle if disconnect is Server or Clients
-            {
-                //The Server is still active and contains the player that disconnected/Left --> Remove player
-                if (playersInRoomLobby.ContainsKey(playerId))
-                {
-                    playersInRoomLobby.Remove(playerId);
-                }
-                else // The Server is active but has left
-                {
-                    OnLobbyLeft();
-                }
-
-                //Propagate information to all clients
-                RemovePlayerClientRpc(playerId);
-
-                UpdateInterface();
-            }
-            else //Event Listener for a client --> Handles the client that disconnects
-            {
-                //roomScreen.gameObject.SetActive(false);
-                //mainLobbyScreen.gameObject.SetActive(true);
-                OnLobbyLeft();
-            }
-        }
-
-
-
-        public void OnReadyClicked()
-        {
-            SetReadyServerRpc(NetworkManager.Singleton.LocalClientId);
-        }
-
-
-
-        private void UpdateInterface()
-        {
-            Debug.Log("Attempting to 'update interface'");
-            LobbyRoomPlayersUpdated?.Invoke(playersInRoomLobby);
-        }
-
-        [Obsolete("This function is likely redundant now. Old code has been commented out")]
-        private async void OnLobbyLeft() // Invoked when a player leaves / disconnects
-        {
-            Debug.LogWarning("OnLobbyLeft is being called? But we've already left the lobby and shutdown the NetworkManager");
-            return;
-            //playersInRoomLobby.Clear();
-            //await MatchmakingService.Instance.LeaveLobby();
-            //NetworkManager.Singleton.Shutdown();
-        }
-
-
-
-
-        [ServerRpc(RequireOwnership = false)]
-        private void SetReadyServerRpc(ulong playerId)
-        {
-            playersInRoomLobby[playerId] = true;
-            PropagateToClients();
-            UpdateInterface();
-        }
-
-        [ClientRpc]
-        private void RemovePlayerClientRpc(ulong clientId)
-        {
-            if (IsServer)
-                return;
-
-            if (playersInRoomLobby.ContainsKey(clientId))
-                playersInRoomLobby.Remove(clientId);
-
-            UpdateInterface();
-        }
-
-        [ClientRpc]
-        private void UpdatePlayersClientRpc(ulong clientId, bool isReady)
-        {
-            if (IsServer)
-                return;
-
-            if (!playersInRoomLobby.ContainsKey(clientId))
-            {
-                playersInRoomLobby.Add(clientId, isReady);
-            }
-            else
-                playersInRoomLobby[clientId] = isReady;
-
-            UpdateInterface();
-        }
-
-        #endregion
-
     }
 }
