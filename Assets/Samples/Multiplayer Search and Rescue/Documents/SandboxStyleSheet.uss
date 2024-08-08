@@ -29,6 +29,6 @@
 }
 
 .unity-base-field__input {
-    background-color: rgba(212, 212, 212, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     color: rgb(255, 255, 255);
 }

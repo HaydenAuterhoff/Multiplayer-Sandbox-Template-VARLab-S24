@@ -7,11 +7,13 @@ namespace VARLab.Sandbox.SAR.UI
 
     public class CreateLobbyMenu : Menu
     {
+        private const int DefaultPlayerCount = 4;
 
         // this will be auto-determined using funny keywords
         private readonly TextField roomNameField;
         private readonly IntegerField maxPlayersField;
         private readonly Button buttonCreate;
+        private readonly Button buttonRandom;
         private readonly Button buttonBack;
 
         public Action Cancelled;
@@ -24,12 +26,14 @@ namespace VARLab.Sandbox.SAR.UI
             createRequestCache = createRequest;
 
             buttonCreate = root.Q<Button>("buttonCreate");
+            buttonRandom = root.Q<Button>("buttonRandom");
             buttonBack = root.Q<Button>("buttonBack");
 
             roomNameField = root.Q<TextField>("roomNameField");
             maxPlayersField = root.Q<IntegerField>("maxPlayersField");
 
             buttonCreate.clicked += TryCreateRoom;
+            buttonRandom.clicked += GenerateRandomRoomName;
             buttonBack.clicked += () => Cancelled?.Invoke();
 
             createRequestCache.Error += HandleError;
@@ -37,13 +41,14 @@ namespace VARLab.Sandbox.SAR.UI
 
         public override void Reset()
         {
-            roomNameField.value = string.Empty;
-            maxPlayersField.value = 1;
+            maxPlayersField.value = DefaultPlayerCount;
+            GenerateRandomRoomName();
         }
 
         public override void Show()
         {
             base.Show();
+            Reset();
             SetButtonActionsEnabled(true);
         }
 
@@ -51,6 +56,12 @@ namespace VARLab.Sandbox.SAR.UI
         {
             buttonBack.SetEnabled(enabled);
             buttonCreate.SetEnabled(enabled);
+            buttonRandom.SetEnabled(enabled);
+        }
+
+        public void GenerateRandomRoomName()
+        {
+            roomNameField.value = RandomNameGenerator.GetRandomName(length: 3, spaces: true);
         }
 
         private void TryCreateRoom()
@@ -66,10 +77,10 @@ namespace VARLab.Sandbox.SAR.UI
                 return;
             }
 
-            if (maxPlayers < 1)
+            if (maxPlayers < 1 || maxPlayers > 12)
             {
-                UnityEngine.Debug.LogWarning("Room capacity must be positive");
-                maxPlayersField.value = 1;
+                UnityEngine.Debug.LogWarning("Room capacity must be between 1 and 12");
+                maxPlayersField.value = DefaultPlayerCount;
                 return;
             }
 
@@ -84,7 +95,6 @@ namespace VARLab.Sandbox.SAR.UI
         private void HandleError(string error)
         {
             // might print error message to the screen
-
             SetButtonActionsEnabled(true);
         }
     }
