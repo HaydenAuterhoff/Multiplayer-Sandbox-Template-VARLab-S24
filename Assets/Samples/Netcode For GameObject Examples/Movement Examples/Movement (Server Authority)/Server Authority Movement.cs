@@ -23,23 +23,32 @@ public class ServerAuthorityMovement : NetworkBehaviour
         transform.localPosition = new Vector3(0, 1, 0);
 
         playerInput = GetComponent<PlayerInput>();
-        playerInput.enabled = IsOwner;
-
-        //Because the server is moving the player the character controller needs to be active on the server
         characterController = GetComponent<CharacterController>();
+
+        //Because the server is moving the player the character controller needs to be active on the server      
         characterController.enabled = IsServer;
+        playerInput.enabled = IsOwner;
     }
 
     void Update()
     {
-        if (!IsOwner) { return; }
-        GetPlayerInput();
+        //If we are not the owner of this object, return
+        if (!IsOwner)
+        {
+            return;
+        }
+
+        //Setup move locally
+        SetupNextMove();
+
+        //Ask server to move player
+        MovePlayerRpc(moveDirection);
     }
 
     /// <summary>
     /// Handles moving the player by taking what was recieved from OnMove and moving the player via the Character Controller
     /// </summary>
-    private void GetPlayerInput()
+    private void SetupNextMove()
     {
         moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
         moveDirection = transform.TransformDirection(moveDirection);
@@ -49,17 +58,6 @@ public class ServerAuthorityMovement : NetworkBehaviour
             moveSpeed = walkSpeed;
         }
         moveDirection *= moveSpeed;
-
-        //If we are the server we can directly call the Move function, otherwise we need to request the server
-        //to validate our movement
-        if (IsServer && IsLocalPlayer && moveDirection != Vector3.zero)
-        {
-            Move(moveDirection);
-        }
-        else if (IsClient && IsLocalPlayer && moveDirection != Vector3.zero)
-        {
-            MovePlayerRpc(moveDirection);
-        }
     }
 
     /// <summary>

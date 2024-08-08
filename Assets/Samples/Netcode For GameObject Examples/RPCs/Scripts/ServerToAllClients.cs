@@ -6,16 +6,19 @@ using UnityEngine;
 /// </summary>
 public class ServerToAllClients : NetworkBehaviour
 {
-    // Update is called once per frame
     void Update()
     {
-        if (!IsOwner) return;
+        //If we are not the owner of this object, return
+        if (!IsOwner)
+        {
+            return;
+        }
+
         if (Input.GetKeyDown(KeyCode.S) && IsServer)
         {
             InvokeOnAllClientsRpc();
         }
     }
-
 
     /// <summary>
     /// This is executed on every client (including the host)

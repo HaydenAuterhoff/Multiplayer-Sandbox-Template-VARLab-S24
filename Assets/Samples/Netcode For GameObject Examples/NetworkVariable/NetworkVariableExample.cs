@@ -1,6 +1,9 @@
 using Unity.Netcode;
 using UnityEngine;
 
+/// <summary>
+/// This class shows an example of a Network Variable./>
+/// </summary>
 public class NetworkVariableExample : NetworkBehaviour
 {
     //Define the NetworkVariable with a default value of 0, anyone can read the variable but only the server can change it.
@@ -16,9 +19,13 @@ public class NetworkVariableExample : NetworkBehaviour
 
     void Update()
     {
-        //If someone other then ourself is trying to access this method, return
-        if (!IsLocalPlayer) { return; }
+        //If we are not the owner of this object, return
+        if (!IsOwner)
+        {
+            return;
+        }
 
+        //If we hit S, request to update the integer
         if (Input.GetKeyDown(KeyCode.S))
         {
             UpdateSharedIntegerRpc();

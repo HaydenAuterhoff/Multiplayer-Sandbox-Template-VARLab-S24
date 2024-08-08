@@ -13,6 +13,8 @@ public class AnimationClientAuthority : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         animator = GetComponent<Animator>();
+
+        //Simple spawn system for two players, spwans them beside eachother for the purposes of this example
         transform.position = NetworkObjectId == 1 ? new Vector3(-0.5f, 0, 0) : new Vector3(3.5f, 0, 0);
     }
 
@@ -22,11 +24,19 @@ public class AnimationClientAuthority : NetworkBehaviour
     /// </summary>
     private void Update()
     {
-        if (!IsOwner || animator is null) { return; }
+        //If we are not the owner of this objet, or the animator is null, return
+        if (!IsOwner || animator is null)
+        {
+            return;
+        }
+
+        //If we hit D open the door
         if (Input.GetKeyDown(KeyCode.D))
         {
             animator.SetTrigger("OpenDoors");
         }
+
+        //If we hit S open the door
         if (Input.GetKeyDown(KeyCode.S))
         {
             animator.SetTrigger("CloseDoors");

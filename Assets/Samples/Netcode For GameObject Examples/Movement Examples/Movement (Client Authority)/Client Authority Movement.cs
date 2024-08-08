@@ -18,21 +18,26 @@ public class ClientAuthorityMovement : NetworkBehaviour
 
     private CharacterController characterController;
 
-
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        transform.localPosition = new Vector3(0, 1, 0);
-        playerInput = GetComponent<PlayerInput>();
-        playerInput.enabled = IsOwner;
 
+        transform.localPosition = new Vector3(0, 1, 0);
+
+        playerInput = GetComponent<PlayerInput>();
         characterController = GetComponent<CharacterController>();
+
+        playerInput.enabled = IsOwner;
         characterController.enabled = IsOwner;
     }
 
     void Update()
     {
-        if (!IsOwner) { return; }
+        //If we are not the owner of this object, return
+        if (!IsOwner)
+        {
+            return;
+        }
         MovePlayer();
     }
 
@@ -41,13 +46,14 @@ public class ClientAuthorityMovement : NetworkBehaviour
     /// </summary>
     private void MovePlayer()
     {
+        //Movement setup
         moveDirection = new Vector3(inputVector.x, 0, inputVector.y);
         moveDirection = transform.TransformDirection(moveDirection);
+
         if (moveDirection != Vector3.zero)
         {
-            moveSpeed = walkSpeed;
+            moveDirection *= moveSpeed;
         }
-        moveDirection *= moveSpeed;
 
         //The client directly moves their own player
         characterController.Move(moveDirection * Time.deltaTime);

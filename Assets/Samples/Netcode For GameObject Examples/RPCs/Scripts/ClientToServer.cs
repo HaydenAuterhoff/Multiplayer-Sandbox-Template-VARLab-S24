@@ -8,10 +8,15 @@ public class ClientToServer : NetworkBehaviour
 {
     void Update()
     {
-        if (!IsOwner) return;
+        //If we are not the owner of this object, return
+        if (!IsOwner)
+        {
+            return;
+        }
+
+        //If we hit S, request a method call on the server.
         if (Input.GetKeyDown(KeyCode.S))
         {
-            //Request server to run a method
             InvokeOnServerRpc(NetworkManager.Singleton.LocalClientId);
         }
     }
@@ -24,7 +29,10 @@ public class ClientToServer : NetworkBehaviour
     private void InvokeOnServerRpc(ulong playerId)
     {
         //Only the server should be running this, so if we aren't the server, return
-        if (!IsServer) { return; }
+        if (!IsServer)
+        {
+            return;
+        }
 
         Debug.Log($"This is being called on the server, invoked from client with id: {playerId}");
     }

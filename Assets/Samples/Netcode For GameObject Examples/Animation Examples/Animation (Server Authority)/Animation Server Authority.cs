@@ -13,22 +13,29 @@ public class AnimationServerAuthority : NetworkBehaviour
     {
         base.OnNetworkSpawn();
         animator = GetComponent<Animator>();
+
+        //Simple spawn system for two players, spwans them beside eachother for the purposes of this example
         transform.position = NetworkObjectId == 1 ? new Vector3(-0.5f, 0, 0) : new Vector3(3.5f, 0, 0);
     }
 
     /// <summary>
     /// This update function calls each animation twice, once through the server and once without,
-    /// since this example is server authorative you will notice that the door will not open on all clients if 
-    /// you hit the key that does not go through the server (D and C) but it will play for everyone, all be it delayed if 
-    /// you hit the other 2 (S and X).
     /// </summary>
     private void Update()
     {
-        if (!IsOwner || animator is null) { return; }
+        if (!IsOwner || animator is null)
+        {
+            return;
+        }
+
+        /*Since this example is server authorative you will notice that the door will not open on all clients if
+        you hit the key that does not go through the server (D and C) but it will play for everyone, all be it delayed if 
+        you hit the other 2 (S and X).*/
         if (Input.GetKeyDown(KeyCode.D))
         {
             animator.SetTrigger("OpenDoors");
         }
+
         if (Input.GetKeyDown(KeyCode.S))
         {
             PlayAnimationRpc("OpenDoors");
@@ -38,6 +45,7 @@ public class AnimationServerAuthority : NetworkBehaviour
         {
             animator.SetTrigger("CloseDoors");
         }
+
         if (Input.GetKeyDown(KeyCode.X))
         {
             PlayAnimationRpc("CloseDoors");
