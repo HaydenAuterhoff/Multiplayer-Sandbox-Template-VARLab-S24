@@ -64,7 +64,7 @@ namespace VARLab.Sandbox.SAR.UI
 
 
             // UI Setup
-            RootElement.Q<Label>("labelRoomCode").text = $"{data.Name} ({data.JoinCode})";
+            RootElement.Q<Label>("labelRoomCode").text = $"{data.Name} ({data.JoinCode})"; //Here
             RootElement.Q<Label>("labelPlayerCount").text = $"Players {data.Players.Count} of {data.Capacity}";
 
 
@@ -82,7 +82,7 @@ namespace VARLab.Sandbox.SAR.UI
             playersListView.bindItem = (element, index) =>
             {
                 var player = Players[index];
-                element.Q<Label>("nameLabel").text = $"Player {index + 1} (ID {player.Id})";
+                element.Q<Label>("nameLabel").text = $"Player {index + 1} (Name: {player.Name})";
             };
 
             playersListView.Rebuild();

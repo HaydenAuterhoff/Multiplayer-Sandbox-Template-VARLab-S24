@@ -23,6 +23,9 @@ namespace VARLab.Sandbox.SAR
             "Xray", "Yankee", "Zulu"
         };
 
+        private static readonly string[] Verbs = { "Extinguish", "Rescue", "Ventilate", "Suppress", "Evacuate" };
+        private static readonly string[] Nouns = { "Firetruck", "Hydrant", "Hose", "Ladder", "Helmet" };
+
         private readonly static Random Randomizer = new();
 
 
@@ -43,6 +46,21 @@ namespace VARLab.Sandbox.SAR
 
             // Tokens are separated by spaces only if the 'spaces' bool is true
             return string.Join(spaces ? " " : string.Empty, names);
+        }
+
+        public static string GetRandomDisplayName()
+        {
+            List<string> displayNames = new();
+
+            //Add a random verb and noun
+            displayNames.Add(Verbs[Randomizer.Next(Verbs.Length)]);
+            displayNames.Add(Verbs[Randomizer.Next(Nouns.Length)]);
+            
+            //Add a random number
+            int randomNumber = Randomizer.Next(10, 100);
+            displayNames.Add(randomNumber.ToString());
+
+            return string.Join("", displayNames);  //No spaces in the DisplayName
         }
     }
 }

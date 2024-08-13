@@ -7,7 +7,9 @@ using UnityEngine.Events;
 
 public class AuthenticationManager : MonoBehaviour
 {
+
     public static string PlayerId { get; private set; }
+    public static string DisplayName { get; private set; }
 
     public UnityEvent<string> LoggedIn;
 
@@ -28,6 +30,7 @@ public class AuthenticationManager : MonoBehaviour
         try
         {
             await LoginAsync();
+            Debug.Log($"PlayerId {PlayerId}");
             Debug.Log("Signed in anonymously");
         }
         catch (Exception e)
@@ -47,5 +50,10 @@ public class AuthenticationManager : MonoBehaviour
         await AuthenticationHelper.InitializeUnityServicesAsync();
         await AuthenticationHelper.SignInAnonymouslyAsync();
         PlayerId = AuthenticationService.Instance.PlayerId;
+    }
+
+    public static void SetDisplayName(string displayName)
+    {
+        DisplayName = displayName;
     }
 }

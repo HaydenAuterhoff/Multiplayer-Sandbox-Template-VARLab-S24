@@ -106,8 +106,17 @@ public class MatchmakingService : MonoBehaviour, IDisposable
                 {
                     { RelayCode, new DataObject(DataObject.VisibilityOptions.Public, joinCode) },
                     { GameStatus, new DataObject(DataObject.VisibilityOptions.Public, Lobby) }
+                },
+
+                Player = new Player
+                {
+                    Data = new Dictionary<string, PlayerDataObject>
+                    {
+                        { "Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, AuthenticationManager.DisplayName) }
+                    }
                 }
             };
+
             CurrentLobby = await Lobbies.Instance.CreateLobbyAsync(data.Name, data.Capacity, options);
             Transport.SetRelayServerData(new RelayServerData(allocation, Protocol));
 
@@ -122,7 +131,18 @@ public class MatchmakingService : MonoBehaviour, IDisposable
 
     public async UniTask JoinLobbyWithAllocation(string lobbyId)
     {
-        CurrentLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyId);
+        var options = new JoinLobbyByIdOptions
+        {
+            Player = new Player
+            {
+                Data = new Dictionary<string, PlayerDataObject>
+                    {
+                        { "Name", new PlayerDataObject(PlayerDataObject.VisibilityOptions.Member, AuthenticationManager.DisplayName) }
+                    }
+            }
+        };
+
+        CurrentLobby = await Lobbies.Instance.JoinLobbyByIdAsync(lobbyId, options);
 
         var allocation = await RelayService.Instance.JoinAllocationAsync(CurrentLobby.Data[RelayCode].Value);
         Transport.SetRelayServerData(new RelayServerData(allocation, Protocol));

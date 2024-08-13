@@ -14,6 +14,10 @@ namespace VARLab.Multiplayer.Lobbies
         public PlayerData(Player fullPlayerData)
         {
             Id = fullPlayerData.Id;
+            if(fullPlayerData.Data != null)
+            {
+                Name = fullPlayerData.Data["Name"]?.Value;
+            }
         }
     }
 }

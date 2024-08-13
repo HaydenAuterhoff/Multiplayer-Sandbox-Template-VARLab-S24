@@ -113,7 +113,9 @@ namespace VARLab.Sandbox.SAR.UI
 
         public void HandleLogin(string playerId)
         {
-            selectLobbyMenu.SetPlayerId(playerId);
+            string displayName = RandomNameGenerator.GetRandomDisplayName(); //RandomNameGenerator is in Search and Resuce folder
+            AuthenticationManager.SetDisplayName(displayName);
+            selectLobbyMenu.SetPlayerId(displayName);
             SwitchMenu(selectLobbyMenu);
             Show();
         }
